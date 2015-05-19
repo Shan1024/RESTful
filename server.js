@@ -57,12 +57,14 @@ router.route('/bears')
         var bear = new Bear();      // create a new instance of the Bear model
         bear.name = req.body.name;  // set the bears name (comes from the request)
 
+        console.log(bear);
+
         // save the bear and check for errors
         bear.save(function(err) {
             if (err)
                 res.send(err);
 
-            res.json({ message: 'Bear created!' });
+            res.json({ _id: bear.id, name: bear.name, message: 'Bear created!' });
         });
 
     })
@@ -106,7 +108,7 @@ router.route('/bears/:bear_id')
                 if (err)
                     res.send(err);
 
-                res.json({ message: 'Bear updated!' });
+                res.json({name: bear.name, message: 'Bear updated!' });
             });
 
         });
@@ -130,6 +132,63 @@ router.route('/bears/:bear_id')
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
 app.use('/api', router);
+
+//####################################################
+
+var http = require('http'),
+    fs = require('fs');
+
+var router2 = express.Router();
+// test route to make sure everything is working (accessed at GET http://localhost:8080/api)
+router2.get('/', function(req, res) {
+  fs.readFile('C:/Users/Shan/Desktop/Web/AJAX/index.html', function (err, html) {
+    res.writeHeader(200, {"Content-Type": "text/html"});
+    res.write(html);
+    res.end();
+  });
+    // res.json({ message: 'OK' });
+});
+
+router2.get('/scripts/jquery.min.js', function(req, res) {
+  fs.readFile('C:/Users/Shan/Desktop/Web/AJAX/scripts/jquery.min.js', function (err, html) {
+    res.writeHeader(200, {"Content-Type": "text/javascript"});
+    res.write(html);
+    res.end();
+  });
+    // res.json({ message: 'OK' });
+});
+
+router2.get('/scripts/main.js', function(req, res) {
+  fs.readFile('C:/Users/Shan/Desktop/Web/AJAX/scripts/main.js', function (err, html) {
+    res.writeHeader(200, {"Content-Type": "text/javascript"});
+    res.write(html);
+    res.end();
+  });
+    // res.json({ message: 'OK' });
+});
+
+router2.get('/scripts/mustache.js', function(req, res) {
+  fs.readFile('C:/Users/Shan/Desktop/Web/AJAX/scripts/mustache.js', function (err, html) {
+    res.writeHeader(200, {"Content-Type": "text/javascript"});
+    res.write(html);
+    res.end();
+  });
+    // res.json({ message: 'OK' });
+});
+
+router2.get('/styles/main.css', function(req, res) {
+  fs.readFile('C:/Users/Shan/Desktop/Web/AJAX/styles/main.css', function (err, html) {
+    if (err) console.log(err);
+    res.writeHeader(200, {"Content-Type": "text/css"});
+    res.write(html);
+    res.end();
+  });
+    // res.json({ message: 'OK' });
+});
+
+//####################################################
+
+app.use('/', router2);
 
 // START THE SERVER
 // =============================================================================
