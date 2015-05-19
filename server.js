@@ -133,7 +133,7 @@ router.route('/bears/:bear_id')
 // all of our routes will be prefixed with /api
 app.use('/api', router);
 
-//####################################################
+//***********************************************************************
 
 var http = require('http'),
     fs = require('fs');
@@ -186,7 +186,7 @@ router2.get('/styles/main.css', function(req, res) {
     // res.json({ message: 'OK' });
 });
 
-//####################################################
+//*********************************************************************
 
 app.use('/', router2);
 
